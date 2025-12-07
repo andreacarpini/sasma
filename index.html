@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Charset & Viewport (keep existing) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Stephen Asma - Author, Professor & Philosopher</title>
+    <meta name="description" content="Stephen Asma - Professor of Philosophy, author, and cultural critic. Explore books, articles, podcasts, and creative works.">
+    <meta name="keywords" content="Stephen Asma, philosophy, author, professor, books, podcasts, essays, Aeon, New York Times">
+    <meta name="author" content="Stephen Asma">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Stephen Asma - Author, Professor & Philosopher">
+    <meta property="og:description" content="Explore the works of Stephen Asma - philosophy, books, podcasts, and creative projects.">
+    <meta property="og:image" content="beetle.jpeg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://stephenasma.com">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Stephen Asma - Author, Professor & Philosopher">
+    <meta name="twitter:description" content="Explore the works of Stephen Asma - philosophy, books, podcasts, and creative projects.">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="fav_icon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="fav_icon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="fav_icon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="fav_icon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="fav_icon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="fav_icon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="fav_icon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="fav_icon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="fav_icon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="fav_icon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="fav_icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="fav_icon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="fav_icon/favicon-16x16.png">
+    <link rel="manifest" href="fav_icon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="fav_icon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #B7B5B6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: white;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Author name styling */
+        .author-name {
+            position: absolute;
+            z-index: 5;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: bold;
+            color: #1a202c;
+            text-align: center;
+            pointer-events: none;
+        }
+        
+        /* Desktop: Right side middle */
+        .author-name.desktop {
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 2.8rem;
+            line-height: 1;
+            letter-spacing: 2px;
+        }
+        
+        /* Mobile: Top center */
+        .author-name.mobile {
+            display: none;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.2rem;
+            text-align: center;
+            width: 100%;
+            padding: 0 15px;
+        }
+        
+        /* Lines SVG */
+        .lines-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .annotation-line {
+            stroke: #333;
+            stroke-width: 1.5;
+            transition: all 0.3s ease;
+        }
+        
+        .annotation-dot {
+            fill: #b91c1c;
+            stroke: white;
+            stroke-width: 1.5;
+            transition: all 0.3s ease;
+        }
+        
+        /* Labels */
+        .annotation-label {
+            position: absolute;
+            z-index: 20;
+            max-width: 200px;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+        
+        .label-box {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 10px 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .annotation-label:hover .label-box {
+            background: rgba(255, 255, 255, 0.75);
+            border-color: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(185, 28, 28, 0.15);
+        }
+        
+        .label-title {
+            font-weight: 700;
+            color: #111;
+            font-size: 16px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .label-subtitle {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .label-link {
+            text-decoration: none;
+            display: block;
+        }
+        
+        .label-link:hover .label-title {
+            color: #b91c1c;
+        }
+        
+        .external-icon {
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .annotation-label:hover .external-icon {
+            opacity: 1;
+        }
+        
+        /* Label alignments */
+        .label-right {
+            text-align: right;
+            align-items: flex-end;
+        }
+        
+        .label-left {
+            text-align: left;
+            align-items: flex-start;
+        }
+        
+        .label-center {
+            text-align: center;
+            align-items: center;
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(0px);
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .modal-header h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 5px;
+        }
+        
+        .modal-header p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 18px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .modal-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .modal-link {
+            display: block;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 15px;
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .modal-link:hover {
+            border-color: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(185, 28, 28, 0.15);
+        }
+        
+        .modal-link:hover .modal-link-title {
+            color: #b91c1c;
+        }
+        
+        .modal-link::after {
+            content: '\f35d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 12px;
+            color: #b91c1c;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .modal-link:hover::after {
+            opacity: 1;
+        }
+        
+        .modal-link-title {
+            font-weight: 700;
+            color: #111;
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s ease;
+        }
+        
+        .modal-link-description {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+            transition: color 0.2s ease;
+        }
+        
+        .modal-link:hover .modal-link-description {
+            color: #555;
+        }
+        
+        .modal-link-icon {
+            color: #666;
+            font-size: 12px;
+            transition: color 0.2s ease;
+        }
+        
+        .modal-link:hover .modal-link-icon {
+            color: #b91c1c;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .author-name.desktop {
+                right: calc(50% - 40vw);
+            }
+            
+            .annotation-label {
+                max-width: 150px;
+            }
+            
+            .label-title {
+                font-size: 14px;
+            }
+            
+            .label-subtitle {
+                font-size: 12px;
+            }
+            
+            .label-box {
+                padding: 8px 12px;
+            }
+            
+            /* Show mobile author name, hide desktop */
+            .author-name.desktop {
+                display: none;
+            }
+            
+            .author-name.mobile {
+                display: block;
+            }
+            
+            .modal-content {
+                padding: 15px;
+                width: 90%;
+            }
+            
+            .modal-header h3 {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .annotation-label {
+                max-width: 120px;
+            }
+            
+            .label-title {
+                font-size: 13px;
+            }
+            
+            .author-name.mobile {
+                font-size: 1.8rem;
+            }
+            
+            .modal-links {
+                gap: 10px;
+            }
+            
+            .modal-link {
+                padding: 12px;
+            }
+            
+            .modal-link::after {
+                top: 12px;
+                right: 12px;
+            }
+        }
+        
+        /* For very small screens */
+        @media (max-width: 350px) {
+            .author-name.mobile {
+                font-size: 1.5rem;
+                top: 10px;
+            }
+            
+            .modal-link::after {
+                display: none;
+            }
+        }
+        
+        /* Desktop only adjustments */
+        @media (min-width: 769px) {
+            .author-name.desktop {
+                display: block;
+            }
+            
+            .author-name.mobile {
+                display: none;
+            }
+        }
+        
+        /* Dim effect for non-hovered */
+        .dimmed .annotation-label:not(:hover) .label-box {
+            opacity: 0.5;
+            filter: blur(5px);
+        }
+        
+        .dimmed .annotation-line:not(.highlighted) {
+            opacity: 0.1;
+        }
+        
+        .dimmed .annotation-dot:not(.highlighted) {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Image Container -->
+        <div class="image-wrapper" id="imageWrapper">
+            <img src="beetle.jpeg" alt="Interactive diagram showing Stephen Asma's work and creative projects" class="main-image" id="mainImage">
+            
+            <!-- SVG for lines -->
+            <svg class="lines-layer" id="linesLayer"></svg>
+            
+            <!-- Annotation Labels (Positioned with JS) -->
+            <!-- Labels will be inserted here by JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Author Name - Desktop -->
+    <div class="author-name desktop">Stephen Asma</div>
+    
+    <!-- Author Name - Mobile -->
+    <div class="author-name mobile">Stephen Asma</div>
+    
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h3>Articles</h3>
+            </div>
+            <div class="modal-links">
+                <a href="https://aeon.co/users/stephen-asma" class="modal-link" target="_blank" rel="noopener noreferrer">
+                    <div class="modal-link-title">
+                        Essays for Aeon
+                    </div>
+                    <div class="modal-link-description">
+                        Read selected essays on philosophy, culture, and more
+                    </div>
+                </a>
+                <a href="https://www.nytimes.com/search?dropmab=false&lang=en&query=%22stephen%20t%20asma%22&sort=best" class="modal-link" target="_blank" rel="noopener noreferrer">
+                    <div class="modal-link-title">
+                        Essays for the New York Times
+                    </div>
+                    <div class="modal-link-description">
+                        Explore articles published for the The New York Times
+                    </div>
+                </a>
+                <a href="https://scholar.google.com/citations?hl=en&user=2s55SrMAAAAJ" class="modal-link" target="_blank" rel="noopener noreferrer">
+                    <div class="modal-link-title">
+                        Academic articles
+                    </div>
+                    <div class="modal-link-description">
+                        Browse academic publications and research papers
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Annotation data
+        const ANNOTATIONS = [
+            {
+                id: 1,
+                title: "Chinwag",
+                subtitle: "(podcast w/ Paul Giamatti)",
+                href: "https://podcasts.apple.com/us/podcast/paul-giamattis-chinwag-with-stephen-asma/id1670711233",
+                target: { x: 38, y: 20 },
+                labelPos: { x: 15, y: 10 },
+                align: "right"
+            },
+            {
+                id: 2,
+                title: "Bio",
+                href: "https://en.wikipedia.org/wiki/Stephen_T._Asma",
+                target: { x: 50, y: 21 },
+                labelPos: { x: 50, y: 5 },
+                align: "center"
+            },
+            {
+                id: 3,
+                title: "Professor Asma's Guide to Unusual Knowledge",
+                subtitle: "(YouTube)",
+                href: "https://www.youtube.com/@GuideToUnusualKnowledge",
+                target: { x: 61, y: 28 },
+                labelPos: { x: 85, y: 12 },
+                align: "left"
+            },
+            {
+                id: 4,
+                title: "Books",
+                href: "https://www.amazon.com/stores/author/B001HCXING?ccs_id=b530da85-5f4d-4696-ab1c-fa05355d1a60",
+                target: { x: 32, y: 38 },
+                labelPos: { x: 12, y: 30 },
+                align: "right"
+            },
+            {
+                id: 5,
+                title: "The Golden Thread",
+                subtitle: "(Esoterica)",
+                href: "https://www.linkedin.com/posts/stephen-asma-82637416_im-very-proud-to-announce-my-forthcoming-activity-7273720519059746816-4fJV/",
+                target: { x: 68, y: 41 },
+                labelPos: { x: 88, y: 35 },
+                align: "left"
+            },
+            {
+                id: 6,
+                title: "The Alchemy of Being",
+                subtitle: "(podcast / coming soon)",
+                href: "https://prx.org/shows",
+                target: { x: 73, y: 65 },
+                labelPos: { x: 85, y: 65 },
+                align: "left"
+            },
+            {
+                id: 7,
+                title: "Articles",
+                href: "#",
+                target: { x: 29, y: 70 },
+                labelPos: { x: 12, y: 75 },
+                align: "right",
+                isModal: true
+            },
+            {
+                id: 8,
+                title: "Music",
+                href: "https://soundcloud.com/stephen-asma",
+                target: { x: 46, y: 67 },
+                labelPos: { x: 35, y: 92 },
+                align: "center"
+            },
+            {
+                id: 9,
+                title: "Art",
+                href: "https://www.instagram.com/stephenasma_/?hl=en",
+                target: { x: 69, y: 71 },
+                labelPos: { x: 78, y: 85 },
+                align: "left"
+            }
+        ];
+
+        // DOM elements
+        const imageWrapper = document.getElementById('imageWrapper');
+        const linesLayer = document.getElementById('linesLayer');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        
+        let hoveredId = null;
+        let containerRect = null;
+        let resizeObserver = null;
+        let isModalOpen = false;
+
+        // Initialize labels
+        function initLabels() {
+            ANNOTATIONS.forEach(ann => {
+                const label = document.createElement('div');
+                label.className = `annotation-label label-${ann.align}`;
+                label.id = `label-${ann.id}`;
+                label.dataset.id = ann.id;
+                
+                // Check if this is the articles modal
+                if (ann.id === 7) {
+                    // Articles - create modal trigger
+                    label.innerHTML = `
+                        <button class="label-box label-${ann.align}" data-modal-trigger="true" aria-label="Open articles">
+                            <div class="label-title">
+                                ${ann.title}
+                                <i class="fas fa-chevron-down external-icon"></i>
+                            </div>
+                            ${ann.subtitle ? `<div class="label-subtitle">${ann.subtitle}</div>` : ''}
+                        </button>
+                    `;
+                    
+                    // Add click event for modal
+                    label.querySelector('.label-box').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        openModal();
+                    });
+                } else {
+                    // Regular link
+                    label.innerHTML = `
+                        <a href="${ann.href}" class="label-link" target="_blank" rel="noopener noreferrer">
+                            <div class="label-box label-${ann.align}">
+                                <div class="label-title">
+                                    ${ann.title}
+                                    <i class="fas fa-external-link-alt external-icon"></i>
+                                </div>
+                                ${ann.subtitle ? `<div class="label-subtitle">${ann.subtitle}</div>` : ''}
+                            </div>
+                        </a>
+                    `;
+                }
+                
+                // Add hover events for lines highlighting
+                label.addEventListener('mouseenter', () => {
+                    if (!isModalOpen) {
+                        setHovered(ann.id);
+                    }
+                });
+                label.addEventListener('mouseleave', () => {
+                    if (!isModalOpen) {
+                        setHovered(null);
+                    }
+                });
+                
+                imageWrapper.appendChild(label);
+            });
+            
+            updatePositions();
+        }
+
+        // Open modal
+        function openModal() {
+            isModalOpen = true;
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            setHovered(7);
+            document.body.classList.add('dimmed');
+        }
+
+        // Close modal
+        function closeModal() {
+            isModalOpen = false;
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            setHovered(null);
+            document.body.classList.remove('dimmed');
+        }
+
+        // Set hovered annotation
+        function setHovered(id) {
+            hoveredId = id;
+            updateLines();
+            
+            // Add/remove dimmed class
+            if (isModalOpen) {
+                document.body.classList.add('dimmed');
+            } else if (id) {
+                document.body.classList.add('dimmed');
+            } else {
+                document.body.classList.remove('dimmed');
+            }
+        }
+
+        // Update all positions
+        function updatePositions() {
+            // Always get fresh container rect
+            containerRect = imageWrapper.getBoundingClientRect();
+            
+            // Position labels
+            ANNOTATIONS.forEach(ann => {
+                const label = document.getElementById(`label-${ann.id}`);
+                if (label) {
+                    label.style.left = `${ann.labelPos.x}%`;
+                    label.style.top = `${ann.labelPos.y}%`;
+                }
+            });
+            
+            // Force reflow to ensure positions are applied
+            void imageWrapper.offsetHeight;
+            
+            updateLines();
+        }
+
+        // Update connecting lines
+        function updateLines() {
+            // Clear existing lines
+            linesLayer.innerHTML = '';
+            
+            // Always get fresh container rect
+            containerRect = imageWrapper.getBoundingClientRect();
+            
+            ANNOTATIONS.forEach(ann => {
+                const label = document.getElementById(`label-${ann.id}`);
+                if (!label || !containerRect) return;
+                
+                // Get label position in percentage, convert to pixels
+                const labelPosX = (ann.labelPos.x / 100) * containerRect.width;
+                const labelPosY = (ann.labelPos.y / 100) * containerRect.height;
+                
+                // Get target position in percentage, convert to pixels
+                const targetX = (ann.target.x / 100) * containerRect.width;
+                const targetY = (ann.target.y / 100) * containerRect.height;
+                
+                // Calculate label dimensions after it's been positioned
+                const labelRect = label.getBoundingClientRect();
+                const labelCenterX = labelRect.width / 2;
+                const labelCenterY = labelRect.height / 2;
+                
+                // Calculate actual label position relative to container
+                const labelLeft = labelRect.left - containerRect.left;
+                const labelTop = labelRect.top - containerRect.top;
+                
+                // Determine connection points based on alignment
+                let startX, startY;
+                const padding = 8;
+                
+                switch(ann.align) {
+                    case 'right':
+                        // Connect from right edge of label
+                        startX = labelLeft + labelRect.width + padding;
+                        startY = labelTop + labelCenterY;
+                        break;
+                    case 'left':
+                        // Connect from left edge of label
+                        startX = labelLeft - padding;
+                        startY = labelTop + labelCenterY;
+                        break;
+                    case 'center':
+                        // Connect from top or bottom center based on position
+                        if (labelPosY < targetY) {
+                            // Label is above target, connect from bottom
+                            startX = labelLeft + labelCenterX;
+                            startY = labelTop + labelRect.height + padding;
+                        } else {
+                            // Label is below target, connect from top
+                            startX = labelLeft + labelCenterX;
+                            startY = labelTop - padding;
+                        }
+                        break;
+                }
+                
+                // Create line
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', startX);
+                line.setAttribute('y1', startY);
+                line.setAttribute('x2', targetX);
+                line.setAttribute('y2', targetY);
+                line.classList.add('annotation-line');
+                if (hoveredId === ann.id || (isModalOpen && ann.id === 7)) {
+                    line.classList.add('highlighted');
+                    line.setAttribute('stroke-width', '2.5');
+                }
+                
+                // Create dot
+                const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                dot.setAttribute('cx', targetX);
+                dot.setAttribute('cy', targetY);
+                dot.setAttribute('r', (hoveredId === ann.id || (isModalOpen && ann.id === 7)) ? '5' : '3');
+                dot.classList.add('annotation-dot');
+                if (hoveredId === ann.id || (isModalOpen && ann.id === 7)) dot.classList.add('highlighted');
+                
+                linesLayer.appendChild(line);
+                linesLayer.appendChild(dot);
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Close modal when clicking close button
+            modalClose.addEventListener('click', closeModal);
+            
+            // Close modal when clicking overlay
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+            
+            // Close modal when pressing Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && isModalOpen) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Handle image load
+        const mainImage = document.getElementById('mainImage');
+        mainImage.onload = function() {
+            updatePositions();
+        };
+
+        // Setup resize observer for container changes
+        function setupResizeObserver() {
+            if ('ResizeObserver' in window) {
+                resizeObserver = new ResizeObserver(() => {
+                    updatePositions();
+                });
+                resizeObserver.observe(imageWrapper);
+                resizeObserver.observe(document.body);
+            }
+        }
+
+        // Handle window resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                updatePositions();
+            }, 100);
+        });
+
+        // Handle image error
+        mainImage.onerror = function() {
+            console.error('Image failed to load');
+            // Create a placeholder
+            const placeholder = document.createElement('div');
+            placeholder.style.cssText = `
+                width: 100%;
+                height: 600px;
+                background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #666;
+                font-size: 18px;
+            `;
+            placeholder.textContent = 'Image not found';
+            imageWrapper.insertBefore(placeholder, this);
+            this.style.display = 'none';
+            
+            // Initialize with placeholder size
+            setTimeout(updatePositions, 100);
+        };
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initLabels();
+            setupEventListeners();
+            setupResizeObserver();
+            
+            // If image is already loaded
+            if (mainImage.complete) {
+                updatePositions();
+            }
+        });
+    </script>
+</body>
+</html>
