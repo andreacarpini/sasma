@@ -49,8 +49,6 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
-
-
     <style>
         * {
             margin: 0;
@@ -131,20 +129,26 @@
             height: 100%;
             pointer-events: none;
             z-index: 10;
-            transform: translateZ(0)
         }
         
         .annotation-line {
             stroke: #333;
             stroke-width: 1.5;
-            transition: all 0.3s ease;
         }
         
         .annotation-dot {
             fill: #b91c1c;
             stroke: white;
             stroke-width: 1.5;
-            transition: all 0.3s ease;
+        }
+        
+        /* Add transition only when NOT highlighted */
+        .annotation-line:not(.highlighted) {
+            transition: opacity 0.3s ease;
+        }
+        
+        .annotation-dot:not(.highlighted) {
+            transition: opacity 0.3s ease, r 0.3s ease;
         }
         
         /* Labels */
@@ -152,7 +156,7 @@
             position: absolute;
             z-index: 20;
             max-width: 200px;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
             transform: translate(-50%, -50%);
         }
         
@@ -240,7 +244,6 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
-            backdrop-filter: blur(0px);
         }
         
         .modal-overlay.active {
@@ -719,15 +722,22 @@
         // Set hovered annotation
         function setHovered(id) {
             hoveredId = id;
-            updateLines();
             
-            // Add/remove dimmed class
+            // Add/remove dimmed class with better timing
             if (isModalOpen) {
                 document.body.classList.add('dimmed');
+                updateLines();
             } else if (id) {
                 document.body.classList.add('dimmed');
+                updateLines();
             } else {
-                document.body.classList.remove('dimmed');
+                // Small delay before removing dimmed to prevent blink
+                setTimeout(() => {
+                    if (!isModalOpen && hoveredId === null) {
+                        document.body.classList.remove('dimmed');
+                    }
+                    updateLines();
+                }, 50);
             }
         }
 
@@ -816,18 +826,23 @@
                 line.setAttribute('x2', targetX);
                 line.setAttribute('y2', targetY);
                 line.classList.add('annotation-line');
-                if (hoveredId === ann.id || (isModalOpen && ann.id === 7)) {
+                
+                // Set highlighted state
+                const isHighlighted = hoveredId === ann.id || (isModalOpen && ann.id === 7);
+                if (isHighlighted) {
                     line.classList.add('highlighted');
                     line.setAttribute('stroke-width', '2.5');
+                } else {
+                    line.setAttribute('stroke-width', '1.5');
                 }
                 
                 // Create dot
                 const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
                 dot.setAttribute('cx', targetX);
                 dot.setAttribute('cy', targetY);
-                dot.setAttribute('r', (hoveredId === ann.id || (isModalOpen && ann.id === 7)) ? '5' : '3');
+                dot.setAttribute('r', isHighlighted ? '5' : '3');
                 dot.classList.add('annotation-dot');
-                if (hoveredId === ann.id || (isModalOpen && ann.id === 7)) dot.classList.add('highlighted');
+                if (isHighlighted) dot.classList.add('highlighted');
                 
                 linesLayer.appendChild(line);
                 linesLayer.appendChild(dot);
